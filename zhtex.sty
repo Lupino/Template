@@ -1,0 +1,190 @@
+\ProvidesPackage{zhtex}[]
+\RequirePackage{CJK}
+\RequirePackage{indentfirst} %首行缩进宏包
+\RequirePackage[sf]{titlesec}%控制标题的宏包
+\RequirePackage{titletoc}%控制目录的宏包
+\RequirePackage{geometry}%版面控制宏包
+%\RequirePackage[dvipdfm,hyperindex,CJKbookmarks]{hyperref}
+\RequirePackage{epsfig}% eps图像
+\RequirePackage{caption2}%浮动图形和表格标题样式
+\RequirePackage{type1cm}%tex1cm宏包，控制字体的大小
+\RequirePackage{layouts}%打印当前页面格式的宏包
+\RequirePackage{xcolor}%颜色支持
+
+\newif\ifzhtex@colorlinks\zhtex@colorlinksfalse
+\DeclareOption{colorlinks}{\zhtex@colorlinkstrue}
+\newif\ifzhtex@links\zhtex@linksfalse
+\DeclareOption{links}{\zhtex@linkstrue}
+
+\ProcessOptions
+
+\ifzhtex@links
+	\RequirePackage[colorlinks,dvipdfm,CJKbookmarks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref}
+\fi
+\ifzhtex@colorlinks
+	\RequirePackage[dvipdfm, colorlinks,CJKbookmarks]{hyperref}
+\fi
+%自动包含CJK*环境
+\def\zhtex@beginCJK{ %
+	\begin{CJK*}{UTF8}{song}
+		\CJKcaption{zh-CN}%中文标题
+		\CJKtilde
+		\CJKindent
+	}
+	
+\def\zhtex@endCJK{ %
+	\clearpage
+	\end{CJK*}}
+
+\AtBeginDocument{\zhtex@beginCJK}
+\AtEndDocument{\zhtex@endCJK}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 重定义字体命令
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\song}{\CJKfamily{song}}    % 宋体
+\newcommand*{\fs}{\CJKfamily{fs}}        % 仿宋体
+\newcommand*{\kai}{\CJKfamily{kai}}      % 楷体
+\newcommand*{\hei}{\CJKfamily{hei}}      % 黑体
+\newcommand*{\li}{\CJKfamily{li}}        % 隶书
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 重定义字号命令
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\yihao}{\fontsize{26pt}{36pt}\selectfont}    % 一号, 1.4倍行距
+\newcommand*{\erhao}{\fontsize{22pt}{28pt}\selectfont}    % 二号, 1.25倍行距
+\newcommand*{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}    % 小二, 单倍行距
+\newcommand*{\sanhao}{\fontsize{16pt}{24pt}\selectfont}    % 三号, 1.5倍行距
+\newcommand*{\xiaosan}{\fontsize{15pt}{22pt}\selectfont}    % 小三, 1.5倍行距
+\newcommand*{\sihao}{\fontsize{14pt}{21pt}\selectfont}    % 四号, 1.5倍行距
+\newcommand*{\banxiaosi}{\fontsize{13pt}{19.5pt}\selectfont}    % 半小四, 1.5倍行距
+\newcommand*{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}    % 小四, 1.5倍行距
+\newcommand*{\dawuhao}{\fontsize{11pt}{11pt}\selectfont}    % 大五号, 单倍行距
+\newcommand*{\wuhao}{\fontsize{10.5pt}{10.5pt}\selectfont}    % 五号, 单倍行距
+
+% 增加 \ucite 命令使显示的引用为上标形式
+\newcommand*{\ucite}[1]{$^{\mbox{\scriptsize \cite{#1}}}$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%定义段落章节的标题和目录项的格式
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+% Modified By Lei Wang BaconChina
+% THU Version
+
+\titleformat{\section}[hang]{\hei \sf \sihao\centering}
+    {\sihao \thesection}{0.5em}{}{}
+%\titlespacing{\section}{0pt}{1.5ex plus .1ex minus .2ex}{\wordsep}
+\titlespacing{\section}{0pt}{1em}{1em}
+
+\titleformat{\subsection}[hang]{\hei \sf \xiaosi}
+    {\xiaosi \thesubsection}{0.5em}{}{}
+%    {\banxiaosi \thesubsection}{0pt}{}{}
+%\titlespacing{\subsection}{0pt}{1.5ex plus .1ex minus .2ex}{\wordsep}
+\titlespacing{\subsection}{0pt}{0em}{0em}
+
+\titleformat{\subsubsection}[hang]{\xiaosi\song \sf}
+    {\thesubsubsection }{0.5em}{}{}
+%\titlespacing{\subsubsection}{0pt}{1.2ex plus .1ex minus .2ex}{\wordsep}
+\titlespacing{\subsubsection}{0pt}{0em}{0em}
+
+%去掉中间对齐的sectionformat，这样就把节的标题左对齐了。
+%\renewcommand \sectionformat{}
+
+% 缩小目录中各级标题之间的缩进
+%\dottedcontents{chapter}[0.0em]{\hei\vspace{0.5em}}{0.0em}{5pt}
+%\dottedcontents{section}[1.16cm]{}{1.8em}{5pt}
+%\dottedcontents{subsection}[2.00cm]{}{2.7em}{5pt}
+%\dottedcontents{subsubsection}[2.86cm]{}{3.4em}{5pt}
+\dottedcontents{chapter}[0.0em]{\hei\vspace{0.5em}}{0.0em}{5pt}
+\dottedcontents{section}[1.16cm]{}{1.8em}{5pt}
+\dottedcontents{subsection}[1.56cm]{}{2.7em}{5pt}
+\dottedcontents{subsubsection}[1.76cm]{}{3.4em}{5pt}
+% 段落之间的竖直距离
+\setlength{\parskip}{3pt plus1pt minus1pt}
+% 定义行距
+\renewcommand{\baselinestretch}{1.5}
+
+%解决中英文混排的断行问题，会加入间距，但不会影响断行
+\sloppy
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% 定制浮动图形和表格标题样式
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\captionfont}{\CJKfamily{song}\rmfamily}
+\renewcommand{\captionlabelfont}{\CJKfamily{song}\rmfamily}
+
+% 去掉图表号后面的:
+\renewcommand{\captionlabeldelim}{\hspace{1em}}
+
+% 图表标题字体为11pt, 这里写作大五号
+\renewcommand{\captionfont}{\dawuhao}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 封面、摘要、版权、致谢格式定义 --- by Feng Hua & Lei Wang
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\ctitle#1{\def\zhtex@ctitle{#1}}\def\zhtex@ctitle{}
+\def\cauthor#1{\def\zhtex@cauthor{#1}}\def\zhtex@cauthor{}
+\def\cdate#1{\def\zhtex@cdate{#1}}\def\zhtex@cdate{}
+\long\def\cabstract#1{\long\def\zhtex@cabstract{#1}}\long\def\zhtex@cabstract{}
+\def\ckeywords#1{\def\zhtex@ckeywords{#1}}\def\zhtex@ckeywords{}
+
+\def\makectitle{
+	\begin{center}
+		\parbox{\textwidth}{\sanhao
+		\begin{center} {\hei \zhtex@ctitle\\}\end{center} }
+		%\parbox{\textwidth}{\xiaosi
+		%\begin{center} {\song \zhtex@cauthor\\}\end{center} }
+	\end{center}
+}
+
+\def\makecover{
+
+	%\setcounter{page}{1}
+	\song \xiaosi 
+
+	\noindent {\newline\sihao\hei \abstractname~~}%
+		\zhtex@cabstract
+
+		\vspace{1em}
+
+	\noindent {\sihao\hei \keywordsname~~}%
+		\zhtex@ckeywords
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 封面、摘要、版权、致谢格式定义 --- by Feng Hua & Lei Wang
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\etitle#1{\def\zhtex@etitle{#1}}\def\zhtex@etitle{}
+\def\eauthor#1{\def\zhtex@eauthor{#1}}\def\zhtex@eauthor{}
+\def\edate#1{\def\zhtex@edate{#1}}\def\zhtex@edate{}
+\long\def\eabstract#1{\long\def\zhtex@eabstract{#1}}\long\def\zhtex@eabstract{}
+\def\ekeywords#1{\def\zhtex@ekeywords{#1}}\def\zhtex@ekeywords{}
+
+\def\makeetitle{
+	\begin{center}
+		\parbox{\textwidth}{\sanhao
+		\begin{center} {\hei \zhtex@etitle\\}\end{center} }
+		%\parbox{\textwidth}{\xiaosi
+		%\begin{center} {\song \zhtex@eauthor\\}\end{center} }
+	\end{center}
+}
+
+\def\makeecover{
+
+	%\setcounter{page}{1}
+	\song \xiaosi
+	\noindent { \newline\sihao\bf Abstract:~}%
+		\zhtex@eabstract
+
+		\vspace{1em}
+
+	\noindent {\sihao\bf Key words:~}%
+		\zhtex@ekeywords
+}
