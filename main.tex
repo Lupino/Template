@@ -1,0 +1,73 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{cmap}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage[links]{zhtex}
+%\usepackage[colorlinks]{zhtex}
+%\usepackage{zhtex}
+%\hypersetup{colorlinks,linkcolor=black,anchorcolor=black,citecolor=black,CJKbookmarks}
+%版面控制宏包，定义规定的版面尺寸
+%\geometry{paper=a4paper,vmargin={2.5 cm,2 cm},hmargin={3cm,2cm}}
+\geometry{paper=a4paper,vmargin={2.5 cm,2 cm},hmargin={3cm,2cm},twosideshift=0 pt}
+\newcommand{\thudot}{.}
+\begin{document}
+
+
+%定义所有的eps文件在 figures 子目录下
+\graphicspath{{figure/}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 自定义项目列表标签及格式 \begin{denselist} 列表项 \end{denselist}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{newlist} %自定义新计数器
+\newenvironment{denselist}[1][可改变的列表题目]{%%%%%定义新环境
+\begin{list}{\textbf{\hei #1} \arabic{newlist}、} %%标签格式
+    {
+    \usecounter{newlist}
+     \setlength{\labelwidth}{22pt} %标签盒子宽度
+     \setlength{\labelsep}{0cm} %标签与列表文本距离
+     \setlength{\leftmargin}{0cm} %左右边界
+     \setlength{\rightmargin}{0cm}
+     \setlength{\parsep}{0ex} %段落间距
+     \setlength{\itemsep}{0ex} %标签间距
+     \setlength{\itemindent}{44pt} %标签缩进量
+     \setlength{\listparindent}{22pt} %段落缩进量
+    }}
+{\end{list}}%%%%%
+
+\def\defaultfont{\renewcommand{\baselinestretch}{1.5}
+\fontsize{12pt}{18pt}\selectfont}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\frontmatter
+\pagestyle{empty}
+\input{cover.tex}
+\renewcommand{\baselinestretch}{1.5}
+\fontsize{12pt}{18pt}\selectfont
+\newpage
+\tableofcontents
+\mainmatter
+%内容
+\newpage
+
+\setlength{\parindent}{2em}
+\pagestyle{plain}
+\setcounter{page}{1}
+%\setcounter{section}{-1}
+\input{pages/yy}
+%\newpage
+\input{pages/method}
+%\newpage
+\input{pages/result}
+%\newpage
+\input{pages/thanks}
+%\input{pages/sec4}
+% 
+%\newpage
+
+\xiaosi
+\addcontentsline{toc}{section}{参考文献}
+\bibliographystyle{thubib}
+\bibliography{refs}
+\end{document}
